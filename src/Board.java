@@ -1,4 +1,5 @@
 
+import com.sun.xml.internal.ws.client.sei.ResponseBuilder;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Toolkit;
@@ -89,7 +90,7 @@ public class Board extends JPanel implements ActionListener {
     public void initValues() {
         setFocusable(true);
         deltaTime = 100;
-        snake = new Snake(4);
+        snake = new Snake(12);
 
     }
 
@@ -107,27 +108,31 @@ public class Board extends JPanel implements ActionListener {
 
     }
 
-    /* private boolean canMoveTo() {
-        
-    }
-     */
     private boolean collisions() {
         Node head = snake.listNodes.get(0);
-        if (head.col < 1) {
+        Node snakeBody = null;
+
+        for (int i = 1; i < snake.listNodes.size(); i++) {
+            snakeBody = snake.listNodes.get(i);
+            if (head.col == snakeBody.col && head.row == snakeBody.row) {
+                return true;
+            }
+        }
+
+        if (head.col < 0) {
             return true;
         }
 
-        if (head.row < 1) {
+        if (head.row < 0) {
             return true;
         }
 
         if (head.row > NUM_ROWS) {
             return true;
         }
-        if (head.col > NUM_COLS - 2) {
+        if (head.col > NUM_COLS - 1) {
             return true;
         }
-
         return false;
     }
 

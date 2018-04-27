@@ -87,6 +87,7 @@ public class Game extends javax.swing.JFrame {
 
     private void jMenuItemStartGameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemStartGameActionPerformed
         board1.initGame();
+        scoreBoard1.reset();
     }//GEN-LAST:event_jMenuItemStartGameActionPerformed
 
     /**
