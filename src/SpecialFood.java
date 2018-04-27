@@ -8,6 +8,6 @@
  *
  * @author alu20919409n
  */
-public class SpecialFood extends Food{
+public class SpecialFood{
     
 }

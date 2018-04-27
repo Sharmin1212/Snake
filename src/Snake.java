@@ -43,7 +43,6 @@ public class Snake {
 
     public void movement(DirectionType direction) {
         Node head = listNodes.get(0);
-
         Node node = new Node(head.row, head.col, Color.GREEN);
         switch (direction) {
             case LEFT:
@@ -71,5 +70,46 @@ public class Snake {
         }
 
         listNodes.remove(listNodes.size() - 1);
+    }
+
+    public void eatFood(DirectionType direction) {
+        Node head = listNodes.get(0);
+        Node node = new Node(head.row, head.col, Color.GREEN);
+            
+        
+        switch (direction) {
+            case LEFT:
+                node.col--;
+                for (int i = 0; i < 3; i++) {
+                listNodes.add(0, node);
+                }
+                break;
+            case RIGHT:
+                node.col++;
+                for (int i = 0; i < 3; i++) {
+                listNodes.add(0, node);
+                }
+                break;
+            case UP:
+                node.row--;
+                for (int i = 0; i < 3; i++) {
+                listNodes.add(0, node);
+                }
+                break;
+
+            case DOWN:
+                node.row++;
+                for (int i = 0; i < 3; i++) {
+                listNodes.add(0, node);
+                }
+                break;
+
+            default:
+
+                break;
+
+        }
+
+    
     }
 }

@@ -90,7 +90,8 @@ public class Board extends JPanel implements ActionListener {
     public void initValues() {
         setFocusable(true);
         deltaTime = 100;
-        snake = new Snake(12);
+        snake = new Snake(2);
+        food = new Food(snake);
 
     }
 
@@ -117,6 +118,11 @@ public class Board extends JPanel implements ActionListener {
             if (head.col == snakeBody.col && head.row == snakeBody.row) {
                 return true;
             }
+        }
+        
+        if (head.row == food.row && head.col == food.col) {
+           snake.eatFood(direction);
+            food = new Food(snake);
         }
 
         if (head.col < 0) {
@@ -151,6 +157,10 @@ public class Board extends JPanel implements ActionListener {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         snake.draw(g, squareWidth(), squareHeight());
+        if (food != null) {
+            food.draw(g, squareWidth(), squareHeight());
+
+        }
         // drawBoarder(g);
     }
 
