@@ -53,6 +53,19 @@ public class Board extends JPanel implements ActionListener {
                         direction = DirectionType.DOWN;
                     }
                     break;
+                    case KeyEvent.VK_P:
+                    if (!gameOver) {
+                        if (timer.isRunning()) {
+                            timer.stop();
+                            AudioPlayer.player.stop(audioSong);
+                            scoreBoard.paused();
+                        } else {
+                            timer.start();
+                            AudioPlayer.player.start(audioSong);
+                            scoreBoard.resume();
+                        }
+                    }
+                    break;
                 default:
                     break;
             }
@@ -90,7 +103,7 @@ public class Board extends JPanel implements ActionListener {
     public void initValues() {
         setFocusable(true);
         deltaTime = 100;
-        snake = new Snake(2);
+        snake = new Snake(3);
         food = new Food(snake);
 
     }
@@ -119,10 +132,11 @@ public class Board extends JPanel implements ActionListener {
                 return true;
             }
         }
-        
+
         if (head.row == food.row && head.col == food.col) {
-           snake.eatFood(direction);
+            snake.eatFood(direction);
             food = new Food(snake);
+            scoreBoard.increment(100);
         }
 
         if (head.col < 0) {

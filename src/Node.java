@@ -23,5 +23,4 @@ public class Node {
         this.color = color;
     }
 
-    //hacer getters and setters de todo?
 }
