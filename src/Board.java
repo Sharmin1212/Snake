@@ -1,5 +1,4 @@
 
-import com.sun.xml.internal.ws.client.sei.ResponseBuilder;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Toolkit;
@@ -111,7 +110,7 @@ public class Board extends JPanel implements ActionListener {
         setBackground(Color.BLACK);
     }
 
-    public void initValues() {
+    private void initValues() {
         setFocusable(true);
         deltaTime = 100;
         snake = new Snake(3);
@@ -122,7 +121,7 @@ public class Board extends JPanel implements ActionListener {
     }
 
     public void initGame() {
-        //AudioPlayer.player.stop(audioSong);
+        AudioPlayer.player.stop(audioSong);
         initValues();
 
         removeKeyListener(keyAdapter);
@@ -151,6 +150,8 @@ public class Board extends JPanel implements ActionListener {
             food = new Food(snake);
             scoreBoard.increment(100);
             foodCounter++;
+            playEffect("EatFood1.wav");
+
         }
 
         if (head.row == specialFood.row && head.col == specialFood.col) {
@@ -158,6 +159,7 @@ public class Board extends JPanel implements ActionListener {
             specialFood = new SpecialFood(snake);
             scoreBoard.increment(300);
             foodCounter++;
+            playEffect("EatFood2.wav");
 
         }
 
@@ -232,9 +234,11 @@ public class Board extends JPanel implements ActionListener {
 
     public void gameOver() throws IOException {
         timer.stop();
+        playSong("GameOver.wav");
         scoreBoard.gameOver();
         RecordsDialog d = new RecordsDialog(parentFrame, true, scoreBoard.getScore());
         d.setVisible(true);
+
     }
 
     private int squareWidth() {
