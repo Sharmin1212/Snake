@@ -9,12 +9,18 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 import sun.audio.AudioPlayer;
 import sun.audio.AudioStream;
+
+
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -53,7 +59,7 @@ public class Board extends JPanel implements ActionListener {
                         direction = DirectionType.DOWN;
                     }
                     break;
-                    case KeyEvent.VK_P:
+                case KeyEvent.VK_P:
                     if (!gameOver) {
                         if (timer.isRunning()) {
                             timer.stop();
@@ -91,6 +97,12 @@ public class Board extends JPanel implements ActionListener {
     private SpecialFood specialFood;
     private Snake snake;
     private DirectionType direction = DirectionType.RIGHT;
+    
+    private JFrame parentFrame;
+
+    public void setParentFrame(JFrame parentFrame) {
+        this.parentFrame = parentFrame;
+    }
 
     public Board() {
         super();
@@ -105,6 +117,7 @@ public class Board extends JPanel implements ActionListener {
         deltaTime = 100;
         snake = new Snake(3);
         food = new Food(snake);
+       // specialFood = new SpecialFood(snake);
 
     }
 
@@ -159,13 +172,16 @@ public class Board extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent ae) {
         if (collisions() == true) {
-            gameOver();
+            try {
+                gameOver();
+            } catch (IOException ex) {
+                Logger.getLogger(Board.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } else {
             snake.movement(direction);
             repaint();
             Toolkit.getDefaultToolkit().sync();
         }
-
     }
 
     protected void paintComponent(Graphics g) {
@@ -175,13 +191,8 @@ public class Board extends JPanel implements ActionListener {
             food.draw(g, squareWidth(), squareHeight());
 
         }
-        // drawBoarder(g);
     }
 
-    /*  public void drawBoarder(Graphics g) {
-        g.setColor(Color.red);
-        g.drawRect(0, 0, NUM_COLS * squareWidth(), NUM_ROWS * squareHeight());
-    }*/
     public void setScoreboard(ScoreBoard scoreboard) {
         this.scoreBoard = scoreboard;
     }
@@ -208,9 +219,11 @@ public class Board extends JPanel implements ActionListener {
         }
     }
 
-    public void gameOver() {
+    public void gameOver() throws IOException {
         timer.stop();
         scoreBoard.gameOver();
+        RecordsDialog d = new RecordsDialog(parentFrame, true, scoreBoard.getScore());
+        d.setVisible(true);
     }
 
     private int squareWidth() {
@@ -220,8 +233,4 @@ public class Board extends JPanel implements ActionListener {
     private int squareHeight() {
         return getHeight() / NUM_ROWS;
     }
-
 }
-
-//deltaTime, food, specialFood, snake/timer
-//actionPerformed, gameOver, canMove, checkColision(boolean), checkFood(boolean), eatFood

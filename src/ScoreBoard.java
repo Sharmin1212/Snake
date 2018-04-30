@@ -43,6 +43,6 @@ public class ScoreBoard extends JLabel {
     }
 
     public void gameOver() {
-        setText("GAME OVER");
+        setText("GAME OVER  || Score: " + score);
     }
 }
