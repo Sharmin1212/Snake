@@ -92,7 +92,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabelCurrentScore">
       <Properties>
-        <Property name="text" type="java.lang.String" value="jLabel2"/>
+        <Property name="text" type="java.lang.String" value="New score"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabelRecord1">

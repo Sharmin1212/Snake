@@ -20,8 +20,6 @@ import javax.swing.Timer;
 import sun.audio.AudioPlayer;
 import sun.audio.AudioStream;
 
-
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -95,9 +93,10 @@ public class Board extends JPanel implements ActionListener {
     AudioStream audioEffect = null;
     private Food food;
     private SpecialFood specialFood;
+    private int foodCounter = 0;
     private Snake snake;
     private DirectionType direction = DirectionType.RIGHT;
-    
+
     private JFrame parentFrame;
 
     public void setParentFrame(JFrame parentFrame) {
@@ -117,7 +116,8 @@ public class Board extends JPanel implements ActionListener {
         deltaTime = 100;
         snake = new Snake(3);
         food = new Food(snake);
-       // specialFood = new SpecialFood(snake);
+
+        specialFood = new SpecialFood(snake);
 
     }
 
@@ -150,6 +150,15 @@ public class Board extends JPanel implements ActionListener {
             snake.eatFood(direction);
             food = new Food(snake);
             scoreBoard.increment(100);
+            foodCounter++;
+        }
+
+        if (head.row == specialFood.row && head.col == specialFood.col) {
+            snake.eatFood(direction);
+            specialFood = new SpecialFood(snake);
+            scoreBoard.increment(300);
+            foodCounter++;
+
         }
 
         if (head.col < 0) {
@@ -189,7 +198,9 @@ public class Board extends JPanel implements ActionListener {
         snake.draw(g, squareWidth(), squareHeight());
         if (food != null) {
             food.draw(g, squareWidth(), squareHeight());
-
+        }
+        if (specialFood != null && (foodCounter % 6 == 0)) {
+            specialFood.draw(g, squareWidth(), squareHeight());
         }
     }
 

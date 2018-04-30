@@ -123,7 +123,7 @@ public class RecordsDialog extends javax.swing.JDialog {
             }
         });
 
-        jLabelCurrentScore.setText("jLabel2");
+        jLabelCurrentScore.setText("New score");
 
         jLabelRecord1.setText("0: NoName");
 
