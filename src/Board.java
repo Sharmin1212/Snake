@@ -36,23 +36,23 @@ public class Board extends JPanel implements ActionListener {
         public void keyPressed(KeyEvent e) {
             switch (e.getKeyCode()) {
                 case KeyEvent.VK_LEFT:
-                    if (direction != DirectionType.RIGHT) {
+                    if (direction != DirectionType.RIGHT && timer.isRunning()) {
                         direction = DirectionType.LEFT;
                     }
 
                     break;
                 case KeyEvent.VK_RIGHT:
-                    if (direction != DirectionType.LEFT) {
+                    if (direction != DirectionType.LEFT && timer.isRunning()) {
                         direction = DirectionType.RIGHT;
                     }
                     break;
                 case KeyEvent.VK_UP:
-                    if (direction != DirectionType.DOWN) {
+                    if (direction != DirectionType.DOWN && timer.isRunning()) {
                         direction = DirectionType.UP;
                     }
                     break;
                 case KeyEvent.VK_DOWN:
-                    if (direction != DirectionType.UP) {
+                    if (direction != DirectionType.UP && timer.isRunning()) {
                         direction = DirectionType.DOWN;
                     }
                     break;
@@ -78,8 +78,8 @@ public class Board extends JPanel implements ActionListener {
 
     public ScoreBoard scoreBoard;
 
-    public static final int NUM_ROWS = 10;
-    public static final int NUM_COLS = 10;
+    public static final int NUM_ROWS = 30;
+    public static final int NUM_COLS = 30;
     private int deltaTime;
     private Timer timer;
     boolean directionUp;
