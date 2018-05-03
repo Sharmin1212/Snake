@@ -78,8 +78,8 @@ public class Board extends JPanel implements ActionListener {
 
     public ScoreBoard scoreBoard;
 
-    public static final int NUM_ROWS = 40;
-    public static final int NUM_COLS = 40;
+    public static final int NUM_ROWS = 10;
+    public static final int NUM_COLS = 10;
     private int deltaTime;
     private Timer timer;
     boolean directionUp;
@@ -92,6 +92,7 @@ public class Board extends JPanel implements ActionListener {
     AudioStream audioEffect = null;
     private Food food;
     private SpecialFood specialFood;
+    boolean specialCondition;
     private int foodCounter = 0;
     private Snake snake;
     private DirectionType direction = DirectionType.RIGHT;
@@ -129,7 +130,7 @@ public class Board extends JPanel implements ActionListener {
         timer.start();
         addKeyListener(keyAdapter);
         gameOver = false;
-        //playSong(".wav");
+        playSong("Song3.wav");
         direction = DirectionType.RIGHT;
 
     }
@@ -154,7 +155,7 @@ public class Board extends JPanel implements ActionListener {
 
         }
 
-        if (head.row == specialFood.row && head.col == specialFood.col) {
+        if (head.row == specialFood.row && head.col == specialFood.col && specialCondition) {
             snake.eatFood(direction);
             specialFood = new SpecialFood(snake);
             scoreBoard.increment(300);
@@ -202,7 +203,10 @@ public class Board extends JPanel implements ActionListener {
             food.draw(g, squareWidth(), squareHeight());
         }
         if (specialFood != null && (foodCounter % 6 == 0)) {
+            specialCondition = true;
             specialFood.draw(g, squareWidth(), squareHeight());
+        } else {
+            specialCondition = false;
         }
     }
 
@@ -234,6 +238,8 @@ public class Board extends JPanel implements ActionListener {
 
     public void gameOver() throws IOException {
         timer.stop();
+        AudioPlayer.player.stop(audioSong);
+
         playSong("GameOver.wav");
         scoreBoard.gameOver();
         RecordsDialog d = new RecordsDialog(parentFrame, true, scoreBoard.getScore());
