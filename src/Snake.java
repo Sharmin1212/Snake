@@ -15,6 +15,7 @@ import java.util.ArrayList;
 public class Snake {
 
     public ArrayList<Node> listNodes;
+    public boolean turning;
     private DirectionType direction;
 
     public DirectionType getDirection() {
@@ -27,6 +28,7 @@ public class Snake {
 
     public Snake(int snakeLength) {
         listNodes = new ArrayList<Node>();
+        turning = false;
         this.direction = DirectionType.RIGHT;
         for (int i = 0; i < snakeLength; i++) {
             listNodes.add(new Node(Board.NUM_ROWS / 2, Board.NUM_COLS / 2 - i, Color.GREEN));
@@ -46,19 +48,25 @@ public class Snake {
         Node node = new Node(head.row, head.col, Color.GREEN);
         switch (direction) {
             case LEFT:
+                turning = false;
                 node.col--;
                 listNodes.add(0, node);
                 break;
             case RIGHT:
+                turning = false;
+
                 node.col++;
                 listNodes.add(0, node);
                 break;
             case UP:
+                turning = false;
+
                 node.row--;
                 listNodes.add(0, node);
                 break;
 
             case DOWN:
+                turning = false;
                 node.row++;
                 listNodes.add(0, node);
                 break;

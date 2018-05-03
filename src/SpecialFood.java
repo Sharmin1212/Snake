@@ -14,12 +14,12 @@ import java.awt.Graphics;
 public class SpecialFood extends Food {
 
     private int visibleTime = 5;
-    
+
     public SpecialFood(Snake snake) {
         super(snake);
     }
-    
-    public int getVisibleTime(){
+
+    public int getVisibleTime() {
         return visibleTime;
     }
 

@@ -36,24 +36,35 @@ public class Board extends JPanel implements ActionListener {
         public void keyPressed(KeyEvent e) {
             switch (e.getKeyCode()) {
                 case KeyEvent.VK_LEFT:
-                    if (direction != DirectionType.RIGHT && timer.isRunning()) {
+                    if (direction != DirectionType.RIGHT && timer.isRunning() && !snake.turning) {
+                        snake.turning = true;
+
                         direction = DirectionType.LEFT;
                     }
 
                     break;
                 case KeyEvent.VK_RIGHT:
-                    if (direction != DirectionType.LEFT && timer.isRunning()) {
+                    if (direction != DirectionType.LEFT && timer.isRunning() && !snake.turning) {
+                        snake.turning = true;
+
                         direction = DirectionType.RIGHT;
+
                     }
                     break;
                 case KeyEvent.VK_UP:
-                    if (direction != DirectionType.DOWN && timer.isRunning()) {
+                    if (direction != DirectionType.DOWN && timer.isRunning() && !snake.turning) {
+                        snake.turning = true;
+
                         direction = DirectionType.UP;
+
                     }
                     break;
                 case KeyEvent.VK_DOWN:
-                    if (direction != DirectionType.UP && timer.isRunning()) {
+
+                    if (direction != DirectionType.UP && timer.isRunning() && !snake.turning) {
+                        snake.turning = true;
                         direction = DirectionType.DOWN;
+
                     }
                     break;
                 case KeyEvent.VK_P:
@@ -81,15 +92,15 @@ public class Board extends JPanel implements ActionListener {
     public static final int NUM_ROWS = 30;
     public static final int NUM_COLS = 30;
     private int deltaTime;
-    private Timer timer;
+    private final Timer timer;
     boolean directionUp;
     boolean directionDown;
     boolean directionLeft;
     boolean directionRight;
     boolean gameOver = false;
     MyKeyAdapter keyAdapter;
-    AudioStream audioSong = null;
-    AudioStream audioEffect = null;
+    AudioStream audioSong;
+    AudioStream audioEffect;
     private Food food;
     private SpecialFood specialFood;
     boolean specialCondition;
@@ -105,6 +116,8 @@ public class Board extends JPanel implements ActionListener {
 
     public Board() {
         super();
+        this.audioSong = null;
+        this.audioEffect = null;
         initValues();
         timer = new Timer(deltaTime, this);
         keyAdapter = new MyKeyAdapter();
@@ -130,8 +143,9 @@ public class Board extends JPanel implements ActionListener {
         timer.start();
         addKeyListener(keyAdapter);
         gameOver = false;
-        playSong("Song3.wav");
+        playSong("Song2.wav");
         direction = DirectionType.RIGHT;
+        foodCounter = 0;
 
     }
 
@@ -175,6 +189,7 @@ public class Board extends JPanel implements ActionListener {
         if (head.row > NUM_ROWS) {
             return true;
         }
+
         if (head.col > NUM_COLS - 1) {
             return true;
         }
@@ -183,6 +198,8 @@ public class Board extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent ae) {
+        //snake.turning = false;
+
         if (collisions() == true) {
             try {
                 gameOver();
@@ -193,9 +210,12 @@ public class Board extends JPanel implements ActionListener {
             snake.movement(direction);
             repaint();
             Toolkit.getDefaultToolkit().sync();
+
         }
+
     }
 
+    @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         snake.draw(g, squareWidth(), squareHeight());
@@ -208,6 +228,7 @@ public class Board extends JPanel implements ActionListener {
         } else {
             specialCondition = false;
         }
+
     }
 
     public void setScoreboard(ScoreBoard scoreboard) {
@@ -220,8 +241,8 @@ public class Board extends JPanel implements ActionListener {
             music = new FileInputStream(new File(song));
             audioSong = new AudioStream(music);
             AudioPlayer.player.start(audioSong);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.getLocalizedMessage());
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null, ex.getLocalizedMessage());
         }
     }
 
@@ -231,8 +252,8 @@ public class Board extends JPanel implements ActionListener {
             music = new FileInputStream(new File(effect));
             audioEffect = new AudioStream(music);
             AudioPlayer.player.start(audioEffect);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.getLocalizedMessage());
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null, ex.getLocalizedMessage());
         }
     }
 
