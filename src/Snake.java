@@ -48,25 +48,20 @@ public class Snake {
         Node node = new Node(head.row, head.col, Color.GREEN);
         switch (direction) {
             case LEFT:
-                turning = false;
                 node.col--;
+
                 listNodes.add(0, node);
                 break;
             case RIGHT:
-                turning = false;
-
                 node.col++;
                 listNodes.add(0, node);
                 break;
             case UP:
-                turning = false;
-
                 node.row--;
                 listNodes.add(0, node);
                 break;
 
             case DOWN:
-                turning = false;
                 node.row++;
                 listNodes.add(0, node);
                 break;
@@ -76,7 +71,7 @@ public class Snake {
                 break;
 
         }
-
+        turning = false;
         listNodes.remove(listNodes.size() - 1);
     }
 
@@ -114,6 +109,14 @@ public class Snake {
             default:
 
                 break;
+
+        }
+
+    }
+    
+    public void reduceSize(int repetitions){
+        for (int i = 1; i < repetitions; i++) {
+                            listNodes.remove(listNodes.size() - 1);
 
         }
 

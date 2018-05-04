@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -103,10 +104,15 @@ public class Board extends JPanel implements ActionListener {
     AudioStream audioEffect;
     private Food food;
     private SpecialFood specialFood;
+    private PurpleFood purpleFood;
     boolean specialCondition;
+    boolean purpleCondition;
+
     private int foodCounter = 0;
     private Snake snake;
     private DirectionType direction = DirectionType.RIGHT;
+    Random random = new Random();
+    int randomNumber;
 
     private JFrame parentFrame;
 
@@ -129,8 +135,8 @@ public class Board extends JPanel implements ActionListener {
         deltaTime = 100;
         snake = new Snake(3);
         food = new Food(snake);
-
         specialFood = new SpecialFood(snake);
+        purpleFood = new PurpleFood(snake);
 
     }
 
@@ -143,9 +149,10 @@ public class Board extends JPanel implements ActionListener {
         timer.start();
         addKeyListener(keyAdapter);
         gameOver = false;
-        playSong("Song2.wav");
+        playSong("Song3.wav");
         direction = DirectionType.RIGHT;
         foodCounter = 0;
+        randomNumber = 0;
 
     }
 
@@ -166,6 +173,7 @@ public class Board extends JPanel implements ActionListener {
             scoreBoard.increment(100);
             foodCounter++;
             playEffect("EatFood1.wav");
+            randomNumber = random.nextInt(4) + 1;
 
         }
 
@@ -175,6 +183,17 @@ public class Board extends JPanel implements ActionListener {
             scoreBoard.increment(300);
             foodCounter++;
             playEffect("EatFood2.wav");
+
+        }
+
+        if (head.row == purpleFood.row && head.col == purpleFood.col && purpleCondition) {
+            snake.reduceSize(6);
+  
+            purpleFood = new PurpleFood(snake);
+            scoreBoard.increment(-50);
+            playEffect("purpleEffect.wav");
+            foodCounter++;
+            randomNumber = 0;
 
         }
 
@@ -227,6 +246,14 @@ public class Board extends JPanel implements ActionListener {
             specialFood.draw(g, squareWidth(), squareHeight());
         } else {
             specialCondition = false;
+        }
+
+        if (purpleFood != null && randomNumber == 1) {
+            purpleFood.draw(g, squareWidth(), squareHeight());
+            purpleCondition = true;
+        } else {
+            purpleCondition = false;
+
         }
 
     }
