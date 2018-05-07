@@ -17,6 +17,15 @@ public class SpecialFood extends Food {
 
     public SpecialFood(Snake snake) {
         super(snake);
+        boolean hitSpecial = true;
+        while (hitSpecial) {
+            hitSpecial = false;
+            for (Node n : snake.listNodes) {
+                if (n.row == row && n.col == col) {
+                    hitSpecial = true;
+                }
+            }
+        }
     }
 
     public int getVisibleTime() {

@@ -123,6 +123,7 @@ public class RecordsDialog extends javax.swing.JDialog {
             }
         });
 
+        jLabelCurrentScore.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabelCurrentScore.setText("New score");
 
         jLabelRecord1.setText("0: NoName");
@@ -189,7 +190,7 @@ public class RecordsDialog extends javax.swing.JDialog {
                     .addComponent(jTextFieldName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jButtonOk)
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();

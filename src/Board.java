@@ -188,7 +188,7 @@ public class Board extends JPanel implements ActionListener {
 
         if (head.row == purpleFood.row && head.col == purpleFood.col && purpleCondition) {
             snake.reduceSize(6);
-  
+
             purpleFood = new PurpleFood(snake);
             scoreBoard.increment(-50);
             playEffect("purpleEffect.wav");
@@ -205,7 +205,7 @@ public class Board extends JPanel implements ActionListener {
             return true;
         }
 
-        if (head.row > NUM_ROWS) {
+        if (head.row > NUM_ROWS - 1) {
             return true;
         }
 
@@ -217,7 +217,6 @@ public class Board extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent ae) {
-        //snake.turning = false;
 
         if (collisions() == true) {
             try {
@@ -292,7 +291,6 @@ public class Board extends JPanel implements ActionListener {
         scoreBoard.gameOver();
         RecordsDialog d = new RecordsDialog(parentFrame, true, scoreBoard.getScore());
         d.setVisible(true);
-
     }
 
     private int squareWidth() {
@@ -303,3 +301,5 @@ public class Board extends JPanel implements ActionListener {
         return getHeight() / NUM_ROWS;
     }
 }
+
+//Ideas: Obstaculos, mapas, obstaculo en movimiento, power ups, 2 players 

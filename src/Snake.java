@@ -113,12 +113,13 @@ public class Snake {
         }
 
     }
-    
-    public void reduceSize(int repetitions){
-        for (int i = 1; i < repetitions; i++) {
-                            listNodes.remove(listNodes.size() - 1);
+
+    public void reduceSize(int repetitions) {
+        if (listNodes.size() > repetitions) {
+            for (int i = 1; i < repetitions; i++) {
+                listNodes.remove(listNodes.size() - 1);
+            }
 
         }
-
     }
 }
