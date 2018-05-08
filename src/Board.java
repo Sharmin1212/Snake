@@ -90,8 +90,8 @@ public class Board extends JPanel implements ActionListener {
 
     public ScoreBoard scoreBoard;
 
-    public static final int NUM_ROWS = 30;
-    public static final int NUM_COLS = 30;
+    public static final int NUM_ROWS = 40;
+    public static final int NUM_COLS = 50;
     private int deltaTime;
     private final Timer timer;
     boolean directionUp;
@@ -107,6 +107,7 @@ public class Board extends JPanel implements ActionListener {
     private PurpleFood purpleFood;
     boolean specialCondition;
     boolean purpleCondition;
+    private SecondMap secondMap;
 
     private int foodCounter = 0;
     private Snake snake;
@@ -137,6 +138,7 @@ public class Board extends JPanel implements ActionListener {
         food = new Food(snake);
         specialFood = new SpecialFood(snake);
         purpleFood = new PurpleFood(snake);
+        secondMap = new SecondMap();
 
     }
 
@@ -166,6 +168,15 @@ public class Board extends JPanel implements ActionListener {
                 return true;
             }
         }
+        
+        for (int i = 1; i < secondMap.listNodes.size(); i++) {
+            snakeBody = secondMap.listNodes.get(i);
+            if (head.col == snakeBody.col && head.row == snakeBody.row) {
+                return true;
+            }
+        }
+        
+   
 
         if (head.row == food.row && head.col == food.col) {
             snake.eatFood(direction);
@@ -205,7 +216,7 @@ public class Board extends JPanel implements ActionListener {
             return true;
         }
 
-        if (head.row > NUM_ROWS - 1) {
+        if (head.row > NUM_ROWS +2) {
             return true;
         }
 
@@ -237,6 +248,7 @@ public class Board extends JPanel implements ActionListener {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         snake.draw(g, squareWidth(), squareHeight());
+        secondMap.draw(g, squareWidth(), squareHeight());
         if (food != null) {
             food.draw(g, squareWidth(), squareHeight());
         }

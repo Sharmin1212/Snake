@@ -30,6 +30,12 @@ public class Food {
                     hit = true;
                 }
             }
+
+            /*for (Node n : SecondMap.listNodes) {
+                if (n.row == row && n.col == col) {
+                    hit = true;
+                }
+            }*/
         }
     }
 
