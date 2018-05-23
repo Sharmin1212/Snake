@@ -32,10 +32,9 @@ public class Game extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItemStartGame = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(700, 600));
+        setPreferredSize(new java.awt.Dimension(682, 605));
         setResizable(false);
 
         javax.swing.GroupLayout board1Layout = new javax.swing.GroupLayout(board1);
@@ -49,7 +48,7 @@ public class Game extends javax.swing.JFrame {
             .addGap(0, 210, Short.MAX_VALUE)
         );
 
-        jMenu1.setText("File");
+        jMenu1.setText("Game");
 
         jMenuItemStartGame.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, 0));
         jMenuItemStartGame.setText("Start Game");
@@ -61,9 +60,6 @@ public class Game extends javax.swing.JFrame {
         jMenu1.add(jMenuItemStartGame);
 
         jMenuBar1.add(jMenu1);
-
-        jMenu2.setText("Edit");
-        jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
 
@@ -130,7 +126,6 @@ public class Game extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private Board board1;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItemStartGame;
     private ScoreBoard scoreBoard1;

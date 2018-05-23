@@ -31,7 +31,7 @@ public class Snake {
         turning = false;
         this.direction = DirectionType.RIGHT;
         for (int i = 0; i < snakeLength; i++) {
-            listNodes.add(new Node(Board.NUM_ROWS / 2, Board.NUM_COLS / 2 - i, Color.GREEN));
+            listNodes.add(new Node(ConfigSingleton.getInstance().getNumRows() / 2, ConfigSingleton.getInstance().getNumCols() / 2 - i, Color.GREEN));
         }
 
     }

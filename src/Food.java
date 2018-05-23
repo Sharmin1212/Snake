@@ -21,8 +21,8 @@ public class Food {
         boolean hit = true;
         while (hit) {
             hit = false;
-            row = (int) (Math.random() * (Board.NUM_ROWS));
-            col = (int) (Math.random() * (Board.NUM_COLS));
+            row = (int) (Math.random() * (ConfigSingleton.getInstance().getNumRows()));
+            col = (int) (Math.random() * (ConfigSingleton.getInstance().getNumCols()));
             color = Color.RED;
 
             for (Node n : snake.listNodes) {
@@ -31,11 +31,11 @@ public class Food {
                 }
             }
 
-            /*for (Node n : SecondMap.listNodes) {
+            for (Node n : ConfigSingleton.getInstance().getListNodesObstacles()) {
                 if (n.row == row && n.col == col) {
                     hit = true;
                 }
-            }*/
+            }
         }
     }
 

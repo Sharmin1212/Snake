@@ -12,37 +12,36 @@ import javax.swing.JLabel;
  */
 public class ScoreBoard extends JLabel {
 
-    private int score;
 
     public ScoreBoard() {
         super();
-        score = 0;
-        setText("Score: " + score);
+        ConfigSingleton.getInstance().setScore(0);;
+        setText("Score: " + 0);
     }
 
     public void increment(int points) {
+        int score = ConfigSingleton.getInstance().getScore();
         score += points;
+        ConfigSingleton.getInstance().setScore(score);
         setText("Score: " + score);
     }
 
     public void reset() {
-        score = 0;
-        setText("Score: " + score);
+        ConfigSingleton.getInstance().setScore(0);
+        setText("Score: " + 0);
     }
     
-    public int getScore() {
-        return score;
-    }
+
 
     public void paused() {
         setText("PAUSED");
     }
 
     public void resume() {
-        setText("Score: " + score);
+        setText("Score: " + ConfigSingleton.getInstance().getScore());
     }
 
     public void gameOver() {
-        setText("GAME OVER  || Score: " + score);
+        setText("GAME OVER  || Score: " + ConfigSingleton.getInstance().getScore());
     }
 }

@@ -90,8 +90,6 @@ public class Board extends JPanel implements ActionListener {
 
     public ScoreBoard scoreBoard;
 
-    public static final int NUM_ROWS = 40;
-    public static final int NUM_COLS = 50;
     private int deltaTime;
     private final Timer timer;
     boolean directionUp;
@@ -105,14 +103,11 @@ public class Board extends JPanel implements ActionListener {
     private Food food;
     private SpecialFood specialFood;
     private PurpleFood purpleFood;
-    boolean specialCondition;
-    boolean purpleCondition;
-    private SecondMap secondMap;
-
-    private int foodCounter = 0;
+    private MapWithObstacles mapWithObstacles;
     private Snake snake;
     private DirectionType direction = DirectionType.RIGHT;
     Random random = new Random();
+
     int randomNumber;
 
     private JFrame parentFrame;
@@ -138,7 +133,7 @@ public class Board extends JPanel implements ActionListener {
         food = new Food(snake);
         specialFood = new SpecialFood(snake);
         purpleFood = new PurpleFood(snake);
-        secondMap = new SecondMap();
+       mapWithObstacles = new MapWithObstacles();
 
     }
 
@@ -153,7 +148,7 @@ public class Board extends JPanel implements ActionListener {
         gameOver = false;
         playSong("Song3.wav");
         direction = DirectionType.RIGHT;
-        foodCounter = 0;
+        ConfigSingleton.getInstance().setFoodCounter(0);
         randomNumber = 0;
 
     }
@@ -168,42 +163,40 @@ public class Board extends JPanel implements ActionListener {
                 return true;
             }
         }
-        
-        for (int i = 1; i < secondMap.listNodes.size(); i++) {
-            snakeBody = secondMap.listNodes.get(i);
+
+        for (int i = 1; i < ConfigSingleton.getInstance().getListNodesObstacles().size(); i++) {
+            snakeBody = ConfigSingleton.getInstance().getListNodesObstacles().get(i);
             if (head.col == snakeBody.col && head.row == snakeBody.row) {
                 return true;
             }
         }
-        
-   
 
         if (head.row == food.row && head.col == food.col) {
             snake.eatFood(direction);
             food = new Food(snake);
             scoreBoard.increment(100);
-            foodCounter++;
+            ConfigSingleton.getInstance().setFoodCounter(ConfigSingleton.getInstance().getFoodCounter() + 1);
             playEffect("EatFood1.wav");
             randomNumber = random.nextInt(4) + 1;
 
         }
 
-        if (head.row == specialFood.row && head.col == specialFood.col && specialCondition) {
+        if (head.row == specialFood.row && head.col == specialFood.col && ConfigSingleton.getInstance().isSpecialCondition()) {
             snake.eatFood(direction);
             specialFood = new SpecialFood(snake);
             scoreBoard.increment(300);
-            foodCounter++;
+            ConfigSingleton.getInstance().setFoodCounter(ConfigSingleton.getInstance().getFoodCounter() + 1);
             playEffect("EatFood2.wav");
 
         }
 
-        if (head.row == purpleFood.row && head.col == purpleFood.col && purpleCondition) {
+        if (head.row == purpleFood.row && head.col == purpleFood.col && ConfigSingleton.getInstance().isPurpleCondition()) {
             snake.reduceSize(6);
 
             purpleFood = new PurpleFood(snake);
             scoreBoard.increment(-50);
             playEffect("purpleEffect.wav");
-            foodCounter++;
+            ConfigSingleton.getInstance().setFoodCounter(ConfigSingleton.getInstance().getFoodCounter() + 1);
             randomNumber = 0;
 
         }
@@ -216,11 +209,11 @@ public class Board extends JPanel implements ActionListener {
             return true;
         }
 
-        if (head.row > NUM_ROWS +2) {
+        if (head.row > ConfigSingleton.getInstance().getNumRows() + 2) {
             return true;
         }
 
-        if (head.col > NUM_COLS - 1) {
+        if (head.col > ConfigSingleton.getInstance().getNumCols() - 1) {
             return true;
         }
         return false;
@@ -248,22 +241,22 @@ public class Board extends JPanel implements ActionListener {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         snake.draw(g, squareWidth(), squareHeight());
-        secondMap.draw(g, squareWidth(), squareHeight());
+        mapWithObstacles.draw(g, squareWidth(), squareHeight());
         if (food != null) {
             food.draw(g, squareWidth(), squareHeight());
         }
-        if (specialFood != null && (foodCounter % 6 == 0)) {
-            specialCondition = true;
+        if (specialFood != null && (ConfigSingleton.getInstance().getFoodCounter() % 6 == 0)) {
+            ConfigSingleton.getInstance().setSpecialCondition(true);
             specialFood.draw(g, squareWidth(), squareHeight());
         } else {
-            specialCondition = false;
+            ConfigSingleton.getInstance().setSpecialCondition(false);
         }
 
         if (purpleFood != null && randomNumber == 1) {
             purpleFood.draw(g, squareWidth(), squareHeight());
-            purpleCondition = true;
+            ConfigSingleton.getInstance().setPurpleCondition(true);
         } else {
-            purpleCondition = false;
+            ConfigSingleton.getInstance().setPurpleCondition(false);
 
         }
 
@@ -301,17 +294,18 @@ public class Board extends JPanel implements ActionListener {
 
         playSong("GameOver.wav");
         scoreBoard.gameOver();
-        RecordsDialog d = new RecordsDialog(parentFrame, true, scoreBoard.getScore());
+        RecordsDialog d = new RecordsDialog(parentFrame, true, ConfigSingleton.getInstance().getScore());
         d.setVisible(true);
     }
 
     private int squareWidth() {
-        return getWidth() / NUM_COLS;
+        return getWidth() / ConfigSingleton.getInstance().getNumCols();
     }
 
     private int squareHeight() {
-        return getHeight() / NUM_ROWS;
+        return getHeight() / ConfigSingleton.getInstance().getNumRows();
     }
 }
 
-//Ideas: Obstaculos, mapas, obstaculo en movimiento, power ups, 2 players 
+//Ideas: obstaculo en movimiento, power ups, 2 players 
+//Falta meter 1 mapa o mas obstaculos (selector de mapas dialog), acabar el singleton (configuration in a file) y selector de canciones
