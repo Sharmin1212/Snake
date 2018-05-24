@@ -37,6 +37,8 @@ public class Game extends javax.swing.JFrame {
         setPreferredSize(new java.awt.Dimension(682, 605));
         setResizable(false);
 
+        board1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 51, 0), 1, true));
+
         javax.swing.GroupLayout board1Layout = new javax.swing.GroupLayout(board1);
         board1.setLayout(board1Layout);
         board1Layout.setHorizontalGroup(
@@ -45,7 +47,7 @@ public class Game extends javax.swing.JFrame {
         );
         board1Layout.setVerticalGroup(
             board1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 210, Short.MAX_VALUE)
+            .addGap(0, 208, Short.MAX_VALUE)
         );
 
         jMenu1.setText("Game");

@@ -12,7 +12,6 @@ import javax.swing.JLabel;
  */
 public class ScoreBoard extends JLabel {
 
-
     public ScoreBoard() {
         super();
         ConfigSingleton.getInstance().setScore(0);;
@@ -30,8 +29,6 @@ public class ScoreBoard extends JLabel {
         ConfigSingleton.getInstance().setScore(0);
         setText("Score: " + 0);
     }
-    
-
 
     public void paused() {
         setText("PAUSED");

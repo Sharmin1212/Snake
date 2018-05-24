@@ -10,7 +10,6 @@
  */
 public class AskObstaclesDialog extends javax.swing.JDialog {
 
-
     /**
      * Creates new form AskObstacles
      */
@@ -34,6 +33,7 @@ public class AskObstaclesDialog extends javax.swing.JDialog {
         jButtonNo = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
 
         jLabelText.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
         jLabelText.setText("Do you want to play with obstacles?");
@@ -84,8 +84,6 @@ public class AskObstaclesDialog extends javax.swing.JDialog {
     private void jButtonYesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonYesActionPerformed
         ConfigSingleton.getInstance().setObstaclesEnabled(true);
         dispose();
-
-
     }//GEN-LAST:event_jButtonYesActionPerformed
 
     private void jButtonNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNoActionPerformed

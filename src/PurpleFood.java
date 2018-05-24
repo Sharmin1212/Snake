@@ -13,15 +13,8 @@ import java.awt.Graphics;
  */
 public class PurpleFood extends Food {
 
-    private int visibleTime = 5;
-
     public PurpleFood(Snake snake) {
         super(snake);
-        
-    }
-
-    public int getVisibleTime() {
-        return visibleTime;
     }
 
     public void draw(Graphics g, int squareWidth, int squareHeight) {

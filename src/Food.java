@@ -16,9 +16,10 @@ public class Food {
     public int row;
     public int col;
     public Color color;
+    boolean hit;
 
     public Food(Snake snake) {
-        boolean hit = true;
+        hit = true;
         while (hit) {
             hit = false;
             row = (int) (Math.random() * (ConfigSingleton.getInstance().getNumRows()));

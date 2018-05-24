@@ -307,5 +307,3 @@ public class Board extends JPanel implements ActionListener {
         return getHeight() / ConfigSingleton.getInstance().getNumRows();
     }
 }
-
-//Falta meter 1 mapa o mas obstaculos (selector de mapas dialog) y selector de canciones
