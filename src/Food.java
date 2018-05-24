@@ -31,10 +31,13 @@ public class Food {
                 }
             }
 
-            for (Node n : ConfigSingleton.getInstance().getListNodesObstacles()) {
-                if (n.row == row && n.col == col) {
-                    hit = true;
+            if (ConfigSingleton.getInstance().isObstaclesEnabled()) {
+                for (Node no : ConfigSingleton.getInstance().getListNodesObstacles()) {
+                    if (no.row == row && no.col == col) {
+                        hit = true;
+                    }
                 }
+
             }
         }
     }

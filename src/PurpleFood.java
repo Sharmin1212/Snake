@@ -17,6 +17,7 @@ public class PurpleFood extends Food {
 
     public PurpleFood(Snake snake) {
         super(snake);
+        
     }
 
     public int getVisibleTime() {

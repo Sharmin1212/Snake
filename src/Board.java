@@ -91,7 +91,7 @@ public class Board extends JPanel implements ActionListener {
     public ScoreBoard scoreBoard;
 
     private int deltaTime;
-    private final Timer timer;
+    public final Timer timer;
     boolean directionUp;
     boolean directionDown;
     boolean directionLeft;
@@ -133,7 +133,6 @@ public class Board extends JPanel implements ActionListener {
         food = new Food(snake);
         specialFood = new SpecialFood(snake);
         purpleFood = new PurpleFood(snake);
-       mapWithObstacles = new MapWithObstacles();
 
     }
 
@@ -150,7 +149,10 @@ public class Board extends JPanel implements ActionListener {
         direction = DirectionType.RIGHT;
         ConfigSingleton.getInstance().setFoodCounter(0);
         randomNumber = 0;
+        if (ConfigSingleton.getInstance().isObstaclesEnabled()) {
+            mapWithObstacles = new MapWithObstacles();
 
+        }
     }
 
     private boolean collisions() {
@@ -163,11 +165,12 @@ public class Board extends JPanel implements ActionListener {
                 return true;
             }
         }
-
-        for (int i = 1; i < ConfigSingleton.getInstance().getListNodesObstacles().size(); i++) {
-            snakeBody = ConfigSingleton.getInstance().getListNodesObstacles().get(i);
-            if (head.col == snakeBody.col && head.row == snakeBody.row) {
-                return true;
+        if (ConfigSingleton.getInstance().isObstaclesEnabled()) {
+            for (int i = 1; i < ConfigSingleton.getInstance().getListNodesObstacles().size(); i++) {
+                snakeBody = ConfigSingleton.getInstance().getListNodesObstacles().get(i);
+                if (head.col == snakeBody.col && head.row == snakeBody.row) {
+                    return true;
+                }
             }
         }
 
@@ -241,7 +244,9 @@ public class Board extends JPanel implements ActionListener {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         snake.draw(g, squareWidth(), squareHeight());
-        mapWithObstacles.draw(g, squareWidth(), squareHeight());
+        if (ConfigSingleton.getInstance().isObstaclesEnabled()) {
+            mapWithObstacles.draw(g, squareWidth(), squareHeight());
+        }
         if (food != null) {
             food.draw(g, squareWidth(), squareHeight());
         }
@@ -307,5 +312,4 @@ public class Board extends JPanel implements ActionListener {
     }
 }
 
-//Ideas: obstaculo en movimiento, power ups, 2 players 
-//Falta meter 1 mapa o mas obstaculos (selector de mapas dialog), acabar el singleton (configuration in a file) y selector de canciones
+//Falta meter 1 mapa o mas obstaculos (selector de mapas dialog) y selector de canciones

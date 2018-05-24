@@ -82,8 +82,14 @@ public class Game extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItemStartGameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemStartGameActionPerformed
+
+        AskObstaclesDialog aod = new AskObstaclesDialog(this, rootPaneCheckingEnabled);
+        board1.timer.stop();
+        aod.setVisible(true);
         board1.initGame();
         scoreBoard1.reset();
+
+
     }//GEN-LAST:event_jMenuItemStartGameActionPerformed
 
     /**

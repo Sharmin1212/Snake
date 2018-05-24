@@ -13,11 +13,20 @@ import java.util.ArrayList;
 public class ConfigSingleton {
 
     private int score;
-    private int numRows = 38;
-    private int numCols = 52;
+    private int numRows = 35;
+    private int numCols = 30;
     private int foodCounter = 0;
     private boolean specialCondition;
     private boolean purpleCondition;
+    private boolean obstaclesEnabled;
+
+    public boolean isObstaclesEnabled() {
+        return obstaclesEnabled;
+    }
+
+    public void setObstaclesEnabled(boolean obstaclesEnabled) {
+        this.obstaclesEnabled = obstaclesEnabled;
+    }
     public ArrayList<Node> listNodesObstacles = new ArrayList<Node>();
 
     public ArrayList<Node> getListNodesObstacles() {
