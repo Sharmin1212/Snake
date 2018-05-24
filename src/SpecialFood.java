@@ -13,15 +13,9 @@ import java.awt.Graphics;
  */
 public class SpecialFood extends Food {
 
-    private int visibleTime = 5;
-
     public SpecialFood(Snake snake) {
         super(snake);
-        
-    }
 
-    public int getVisibleTime() {
-        return visibleTime;
     }
 
     public void draw(Graphics g, int squareWidth, int squareHeight) {

@@ -92,10 +92,6 @@ public class Board extends JPanel implements ActionListener {
 
     private int deltaTime;
     public final Timer timer;
-    boolean directionUp;
-    boolean directionDown;
-    boolean directionLeft;
-    boolean directionRight;
     boolean gameOver = false;
     MyKeyAdapter keyAdapter;
     AudioStream audioSong;

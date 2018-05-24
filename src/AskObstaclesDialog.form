@@ -63,7 +63,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="jButtonYes">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Of course! Let&apos;s Go"/>
+        <Property name="text" type="java.lang.String" value="Of course, let&apos;s go!"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonYesActionPerformed"/>

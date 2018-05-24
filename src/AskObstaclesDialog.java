@@ -38,7 +38,7 @@ public class AskObstaclesDialog extends javax.swing.JDialog {
         jLabelText.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
         jLabelText.setText("Do you want to play with obstacles?");
 
-        jButtonYes.setText("Of course! Let's Go");
+        jButtonYes.setText("Of course, let's go!");
         jButtonYes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonYesActionPerformed(evt);
